@@ -1,8 +1,6 @@
 /*************************************************************************************************************************
  * 2014 - Are We There Yet?
- * http://livearchive.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=3&page=show_problem&problem=15
- *
- * Classification: String Processing
+ * https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&page=show_problem&problem=15
  *
  * Author:
  *   Stephano Beneventi <stbeneventi@gmail.com>
