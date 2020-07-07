@@ -1,4 +1,4 @@
-/*************************************************************************************************************************
+/*******************************************************************************
  * 2014 - Are We There Yet?
  * https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&page=show_problem&problem=15
  *
@@ -6,86 +6,80 @@
  *   Stephano Beneventi <stbeneventi@gmail.com>
  *
  * Description:
- *   La idea de este problema es que dado un número ubicación de una galleta, un niño se mueve de un casillero a otro,
- * si se acerca a la galleta, se imprime "warmer.", si se aleja se imprime "colder.", si se mantiene se escribe "same."
- * y si la encuentra "found it!". El problema aquí es que el número de pasos que da el niño para encontrar la galleta es
- * indefinido, por lo que, hay que procesar los strings con cuidado, y manejar situaciones límites. Por otra parte, hay
- * una dificultad extra, que sólo hay un salto de línea extra entre los distintos outputs, y no al final. Lo raro aquí
- * es que si esto está incorrecto, el sistema no arroja "Presentation Error", sino "Wrong Answer".
+ *   You have a number that represents the location of a cookie, and a kid moves
+ * from one position to another, if he gets closer, the program should print
+ * "warmer.", if he gets away "colder.", and if doesn't move "same.", and "found
+ * it!" if he reach the cookie. There's an extra difficulty, because there's
+ * only extra line breaks between the differents outputs but no in the end. The
+ * weird thing is that ACM evaluation tool, throws an "Wrong Answer", instead of
+ * "Presentation Error".
  *
  */
 
 #include <iostream>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
+#include <sstream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-int main(){
-		int answer;
-		int pos,pos_old;
-		int dif1,dif2;
-		int aux;
-		char c;
+vector<string> splitString(string line, char delim = ' ') {
+  vector<string> arr;
+  stringstream ss(line);
+  string token;
+  while (std::getline(ss, token, delim)) {
+    if (token.length() > 0)
 
-		char numero[6];
+    {
+      arr.push_back(token);
+    }
+  }
+  return arr;
+}
 
-		scanf("%d",&answer);
-		while(1){
+bool printMove(int cookiePos, int currPos, int nextPos) {
+  printf("Moving from %d to %d: ", currPos, nextPos);
+  if (cookiePos == nextPos) {
+    printf("found it!\n");
+    return true;
+  } else {
+    int diff1 = abs(cookiePos - nextPos);
+    int diff2 = abs(cookiePos - currPos);
 
-			pos=0;
+    if (diff1 < diff2) {
+      printf("warmer.\n");
+    } else if (diff1 > diff2) {
+      printf("colder.\n");
+    } else {
+      printf("same.\n");
+    }
+  }
+  return false;
+}
 
-			while(1){
-
-				scanf("%c",&c);
-				while(c==' '){
-					scanf("%c",&c);
-				}
-				if(c=='\n')break;
-
-				aux=0;
-				while(c!=' ' && c!='\n'){
-					numero[aux]=c;
-					aux++;
-					scanf("%c",&c);
-				}
-				numero[aux]='\0';
-
-				pos_old=pos;
-				pos=atoi(numero);
-
-				printf("Moving from %d to %d: ",pos_old,pos);
-
-				if(answer==pos){
-					printf("found it!\n");
-					break;
-				}
-				else{
-					dif1=abs(answer-pos);
-					dif2=abs(answer-pos_old);
-
-					if(dif1<dif2){
-						printf("warmer.\n");
-					}
-					else if (dif1>dif2){
-						printf("colder.\n");
-					}
-					else {
-						printf("same.\n");
-					}
-				}
-
-			}
-
-			scanf("%d",&answer);
-
-
-
-			if(answer<=-5280 || answer>=5280)break;
-
-			printf("\n");
-
-		}
+int main() {
+  bool newLineFlag = false;
+  string line;
+  while (getline(cin, line)) {
+    vector<string> array = splitString(line, ' ');
+    if (array.size() > 0) {
+      int cookiePos = stoi(array.at(0));
+      int position = 0;
+      if (cookiePos >= 5280 || cookiePos <= -5280) {
+        break;
+      }
+      if (newLineFlag) {
+        printf("\n");
+      } else {
+        newLineFlag = true;
+      }
+      for (int i = 1; i < array.size(); i++) {
+        int nextPosition = stoi(array.at(i));
+        if (printMove(cookiePos, position, nextPosition)) {
+          break;
+        }
+        position = nextPosition;
+      }
+    }
+  }
 }
