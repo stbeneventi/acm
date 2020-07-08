@@ -1,3 +1,21 @@
+/*******************************************************************************
+ * 2014 - Are We There Yet?
+ * https://icpcarchive.ecs.baylor.edu/index.php?option=com_onlinejudge&page=show_problem&problem=15
+ *
+ * Author:
+ *   Stephano Beneventi <stbeneventi@gmail.com>
+ *
+ * Description:
+ *   You have a number that represents the location of a cookie, and a kid moves
+ * from one position to another, if he gets closer, the program should print
+ * "warmer.", if he gets away "colder.", and if doesn't move "same.", and "found
+ * it!" if he reach the cookie. There's an extra difficulty, because there's
+ * only extra line breaks between the differents outputs but none in the end.
+ * The weird thing is that ACM evaluation tool, throws an "Wrong Answer",
+ * instead of "Presentation Error".
+ *
+ */
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
