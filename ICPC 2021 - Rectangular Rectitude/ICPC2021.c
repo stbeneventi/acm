@@ -11,37 +11,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char* getToken(char delim, char* index, bool skipDelim) {
-  char c = getchar();
-  if (c == EOF) {
-    *index = EOF;
-    return NULL;
-  }
-  while (skipDelim && c == delim) {
-    c = getchar();
-    if (c == EOF) {
-      *index = EOF;
-      return NULL;
-    }
-  }
-  int length = 8;
-  char* token = malloc(length * sizeof(char));
-  int count = 0;
-  while (c != '\n' && c != EOF && c != delim) {
-    if (count >= length) {
-      token = realloc(token, (length += length) * sizeof(char));
-    }
-    token[count++] = c;
-    c = getchar();
-  }
-  if (count >= length) {
-    token = realloc(token, (length += 1) * sizeof(char));
-  }
-  token[count] = '\0';
-  *index = c;
-  return token;
-}
-
 void swap(int* a, int* b) {
   int tmp = *a;
   *a = *b;
@@ -56,8 +25,8 @@ int maxY = 200;
 
 void resetCanvas() {
   int i, j;
-  for (i = 0; i < 200; i++) {
-    for (j = 0; j < 200; j++) {
+  for (i = minX; i < maxX; i++) {
+    for (j = minY; j < maxY; j++) {
       canvas[i][j] = 0;
     }
   }
@@ -112,23 +81,21 @@ int getAreaOfColor(int color) {
 }
 
 int main() {
-  char index;
   int nRects, color;
   int col, x1, x2, y1, y2;
   int dataset = 1;
 
-  nRects = atoi(getToken(' ', &index, true));
-  color = atoi(getToken(' ', &index, true));
+  scanf("%d %d", &nRects, &color);
 
   while (nRects != 0) {
     resetCanvas();
     int i;
     for (i = 0; i < nRects; i++) {
-      col = atoi(getToken(' ', &index, true));
-      x1 = atoi(getToken(' ', &index, true)) + 100;
-      y1 = atoi(getToken(' ', &index, true)) + 100;
-      x2 = atoi(getToken(' ', &index, true)) + 100;
-      y2 = atoi(getToken(' ', &index, true)) + 100;
+      scanf("%d %d %d %d %d", &col, &x1, &y1, &x2, &y2);
+      x1 += 100;
+      y1 += 100;
+      x2 += 100;
+      y2 += 100;
       paintCanvas(col, x1, y1, x2, y2);
     }
 
@@ -137,8 +104,7 @@ int main() {
 
     dataset++;
 
-    nRects = atoi(getToken(' ', &index, true));
-    color = atoi(getToken(' ', &index, true));
+    scanf("%d %d", &nRects, &color);
   }
 
   return 0;
