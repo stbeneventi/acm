@@ -16,11 +16,8 @@ int main() {
   int i;
   for (i = 0; i < cases; i++) {
     scanf("%d %d", &x, &y);
-    if (x == y || x == y + 2) {
-      if (x % 2 == 0)
-        resp = x + y;
-      else
-        resp = x + y - 1;
+    if ((x == y) + (x == y + 2) > 0) {
+      resp = x + y - (1 * (x & 1));
       printf("%d\n", resp);
     } else
       printf("No Number\n");
