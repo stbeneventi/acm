@@ -40,10 +40,10 @@ int G[] = {1, 5, 7, 6, 2, 8, 3, 0, 9, 4};
 int F(int i, int j) { return i == 0 ? j : F(i - 1, G[j]); }
 
 int ixj(int i, int j) {
-  if (i < 5 && j < 5) return mod5((i + j));
-  if (i < 5 && j >= 5) return mod5((i + (j - 5))) + 5;
-  if (i >= 5 && j < 5) return mod5(((i - 5) - j)) + 5;
-  return mod5((i - j));
+  if (i < 5)
+    return j < 5 ? mod5((i + j)) : mod5((i + (j - 5))) + 5;
+  else
+    return j < 5 ? mod5(((i - 5) - j)) + 5 : mod5((i - j));
 }
 
 int check(char *id) {
