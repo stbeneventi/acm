@@ -35,7 +35,7 @@ int mod5(int a) {
   return (b < 0) * 5 + b;
 }
 
-int G[] = {1, 5, 7, 6, 2, 8, 3, 0, 9, 4};
+int G[10] = {1, 5, 7, 6, 2, 8, 3, 0, 9, 4};
 
 int F(int i, int j) { return i == 0 ? j : F(i - 1, G[j]); }
 
