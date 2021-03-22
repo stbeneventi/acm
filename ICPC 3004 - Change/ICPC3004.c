@@ -9,27 +9,26 @@
 
 #include <stdio.h>
 
-int printChange(int change, int coinValue, char *coin) {
+void printMoney(int *moneyLeft, int changeValue, char *changeString) {
   int n = 0;
-  while (coinValue <= change) {
-    change -= coinValue;
+  while (changeValue <= (*moneyLeft)) {
+    (*moneyLeft) -= changeValue;
     n++;
   }
-  n > 0 && printf("%s*%d%s", coin, n, change == 0 ? "" : " ");
-  return change;
+  n > 0 && printf("%s*%d%s", changeString, n, (*moneyLeft) == 0 ? "" : " ");
 }
 
-int calculateChange(int diff) {
-  int left = diff;
-  left = printChange(left, 2000, "$20");
-  left = printChange(left, 1000, "$10");
-  left = printChange(left, 500, "$5");
-  left = printChange(left, 200, "$2");
-  left = printChange(left, 100, "$1");
-  left = printChange(left, 50, "50c");
-  left = printChange(left, 20, "20c");
-  left = printChange(left, 10, "10c");
-  left = printChange(left, 5, "5c");
+int printChange(int moneyLeft) {
+  printMoney(&moneyLeft, 2000, "$20");
+  printMoney(&moneyLeft, 1000, "$10");
+  printMoney(&moneyLeft, 500, "$5");
+  printMoney(&moneyLeft, 200, "$2");
+  printMoney(&moneyLeft, 100, "$1");
+  printMoney(&moneyLeft, 50, "50c");
+  printMoney(&moneyLeft, 20, "20c");
+  printMoney(&moneyLeft, 10, "10c");
+  printMoney(&moneyLeft, 5, "5c");
+  printf("\n");
 }
 
 int main(int argc, char **argv) {
@@ -68,13 +67,12 @@ int main(int argc, char **argv) {
     diff = offer - cost;
 
     if (diff < 0)
-      printf("Not enough money offered.");
+      printf("Not enough money offered.\n");
     else if (diff == 0)
-      printf("Exact amount.");
+      printf("Exact amount.\n");
     else
-      calculateChange(diff);
+      printChange(diff);
 
-    printf("\n");
     scanf("%d.%d", &d1, &d2);
     cost = d1 * 100 + d2;
     scanf("%d.%d", &d1, &d2);
