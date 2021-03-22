@@ -5,11 +5,6 @@
  * Author:
  *   Stephano Beneventi <stbeneventi@gmail.com>
  *
- * Description:
- *   Este problema es trivial, solo basta con ingresar todas las variables, y
- * ver si T y V, se encuentran dentro de la region definida por los 2 upper
- * bound, y los 2 lower bound.
- *
  */
 
 #include <stdio.h>
