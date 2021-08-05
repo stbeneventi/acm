@@ -41,7 +41,7 @@ class Graph{
 int Graph::dijkstra(int s,int t,Graph &GC){
 
   vector<int> lambda(V,-1);
-  vector<bool> T(V,true);
+  vector<bool> visited(V,false);
 
     int u=-1,i,j,min=-1;
     lambda[s]=0;
@@ -49,10 +49,7 @@ int Graph::dijkstra(int s,int t,Graph &GC){
     while(u!=t){
 
       for(i=0;i<V;i++){
-         if(min==-1 && lambda[i]!=-1 && T[i]==true)min=i;
-         if(lambda[i]<=lambda[min] && lambda[i]!=-1 && T[i]==true){
-            min=i;
-         }
+         if(lambda[i]!=-1 && !visited[i] && (min==-1 || lambda[i]<=lambda[min]))min=i;
       }
 
       u=min;
@@ -60,7 +57,7 @@ int Graph::dijkstra(int s,int t,Graph &GC){
       min=-1;
 
       for(i=0;i<V;i++){
-        if(P[u][i]!=-1 && T[i]==true){
+        if(P[u][i]!=-1 && !visited[i]){
           if(lambda[i]==-1){
             lambda[i]=lambda[u]+P[u][i];
             GC.P[i].push_back(u);
@@ -76,7 +73,7 @@ int Graph::dijkstra(int s,int t,Graph &GC){
         }
       }
 
-      T[u]=false;
+      visited[u]=true;
     }
 
    return lambda[t];
